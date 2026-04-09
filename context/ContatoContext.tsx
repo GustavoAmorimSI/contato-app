@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 export interface Contato {
   id: string;
@@ -7,6 +7,7 @@ export interface Contato {
   iniciais: string;
   cor: string;
 }
+
 
 interface ContatoContextType {
   contatos: Contato[];

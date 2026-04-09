@@ -55,7 +55,7 @@ export default function LigacaoScreen() {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.status}>Em ligação...</Text>
+      
 
         <View
           style={[
