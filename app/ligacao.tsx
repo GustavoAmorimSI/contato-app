@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
+  Image,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -27,6 +28,7 @@ export default function LigacaoScreen() {
   const [altoFalante, setAltoFalante] = useState(false);
 
   const corAvatar = cor || theme.colors.primary;
+  const fotoPadrao = require('../assets/images/avatar-padrao.png');
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -55,18 +57,15 @@ export default function LigacaoScreen() {
           </TouchableOpacity>
         </View>
 
-      
-
         <View
           style={[
             styles.avatar,
             {
-              backgroundColor: corAvatar + '20',
               borderColor: corAvatar + '40',
             },
           ]}
         >
-          <Text style={[styles.avatarTexto, { color: corAvatar }]}>{iniciais}</Text>
+          <Image source={fotoPadrao} style={styles.avatarImagem} />
         </View>
 
         <View style={styles.info}>
@@ -165,9 +164,15 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 55,
     borderWidth: 2,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
+  },
+  avatarImagem: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 55,
   },
   avatarTexto: {
     fontSize: 36,

@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { Image } from 'react-native';
+
 import {
   Alert,
   KeyboardAvoidingView,
@@ -81,23 +83,15 @@ export default function AdicionarScreen() {
 
             <View style={{ width: 40 }} />
           </View>
-
-          <View style={styles.areaAvatar}>
-            <View style={styles.avatar}>
-              {iniciais ? (
-                <Text style={styles.avatarTexto}>{iniciais}</Text>
-              ) : (
-                <Ionicons
-                  name="person-outline"
-                  size={38}
-                  color={theme.colors.textDim}
-                />
-              )}
-            </View>
-
-            <Text style={styles.textoAvatar}>Contato sem foto</Text>
-          </View>
-
+<View style={styles.areaAvatar}>
+  <View style={styles.avatar}>
+    <Image
+      source={require('../assets/images/avatar-padrao.png')}
+      style={styles.avatarImagem}
+    />
+  </View>
+  <Text style={styles.textoAvatar}>Foto padrão do contato</Text>
+</View>
           <View style={styles.form}>
             <View>
               <Text style={styles.label}>Nome</Text>
@@ -208,27 +202,30 @@ const styles = StyleSheet.create({
   },
   areaAvatar: {
     alignItems: 'center',
-    paddingVertical: 28,
-  },
-  avatar: {
-    width: 92,
-    height: 92,
-    borderRadius: 46,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 2,
-    borderColor: theme.colors.primary + '22',
-    alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    paddingVertical: 20,
   },
-  avatarTexto: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: theme.colors.primary,
-  },
+ avatar: {
+  width: 90,
+  height: 90,
+  borderRadius: 45,
+  overflow: 'hidden',
+  borderWidth: 1.5,
+  borderColor: theme.colors.border,
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: theme.colors.surface,
+},
+
+avatarImagem: {
+  width: '100%',
+  height: '100%',
+},
   textoAvatar: {
+    marginTop: 8,
     fontSize: 12,
     color: theme.colors.textMuted,
+    textAlign: 'center',
   },
   form: {
     paddingHorizontal: 24,
