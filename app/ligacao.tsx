@@ -51,11 +51,6 @@ export default function LigacaoScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
-        <View style={styles.topo}>
-          <TouchableOpacity style={styles.botaoTopo} onPress={() => router.back()}>
-            <Ionicons name="chevron-down" size={26} color={theme.colors.textMuted} />
-          </TouchableOpacity>
-        </View>
 
         <View
           style={[
