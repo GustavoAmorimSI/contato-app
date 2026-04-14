@@ -38,13 +38,7 @@ const contatosMock: Contato[] = [
   { nome: 'Daniela Souza', telefone: '(11) 97654-3210' },
   { nome: 'Felipe Martins', telefone: '(21) 98123-4567' },
   { nome: 'Gabriela Lima', telefone: '(85) 99234-8765' },
-  { nome: 'Hugo Oliveira', telefone: '(31) 97890-1234' },
-  { nome: 'Isabela Costa', telefone: '(85) 98456-7890' },
-  { nome: 'João Pedro', telefone: '(11) 99345-6789' },
-  { nome: 'Karen Alves', telefone: '(85) 97123-4567' },
-  { nome: 'Lucas Ferreira', telefone: '(21) 98765-4321' },
-  { nome: 'Mariana Rocha', telefone: '(85) 99876-5432' },
-  { nome: 'Nicolas Santos', telefone: '(31) 98234-5678' },
+  
 ].map((c, i) => ({
   id: `mock-${i}`,
   nome: c.nome,

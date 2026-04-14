@@ -48,16 +48,6 @@ export default function AdicionarScreen() {
   }
 
   function salvar() {
-    if (!nomeLimpo) {
-      Alert.alert('Aviso', 'Digite o nome do contato.');
-      return;
-    }
-
-    if (telefoneNumerico.length < 10) {
-      Alert.alert('Aviso', 'Digite um telefone válido.');
-      return;
-    }
-
     adicionarContato(nomeLimpo, telefone.trim());
     router.back();
   }
