@@ -1,10 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Image } from 'react-native';
-
 import {
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -15,8 +14,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import { theme } from '../constants/theme';
 import { useContato } from '../context/ContatoContext';
+
+const avatarPadrao = require('../assets/images/avatar-padrao.png');
 
 export default function AdicionarScreen() {
   const router = useRouter();
@@ -26,6 +28,10 @@ export default function AdicionarScreen() {
   const [telefone, setTelefone] = useState('');
   const [focoNome, setFocoNome] = useState(false);
   const [focoTelefone, setFocoTelefone] = useState(false);
+
+  const nomeLimpo = nome.trim();
+  const telefoneNumerico = telefone.replace(/\D/g, '');
+  const podeSalvar = nomeLimpo.length > 0 && telefoneNumerico.length >= 10;
 
   function formatarTelefone(valor: string) {
     const numeros = valor.replace(/\D/g, '').slice(0, 11);
@@ -42,30 +48,19 @@ export default function AdicionarScreen() {
   }
 
   function salvar() {
-    if (!nome.trim()) {
+    if (!nomeLimpo) {
       Alert.alert('Aviso', 'Digite o nome do contato.');
       return;
     }
 
-    if (telefone.replace(/\D/g, '').length < 10) {
+    if (telefoneNumerico.length < 10) {
       Alert.alert('Aviso', 'Digite um telefone válido.');
       return;
     }
 
-    adicionarContato(nome.trim(), telefone.trim());
+    adicionarContato(nomeLimpo, telefone.trim());
     router.back();
   }
-
-  const podeSalvar =
-    nome.trim().length > 0 && telefone.replace(/\D/g, '').length >= 10;
-
-  const iniciais = nome
-    .trim()
-    .split(' ')
-    .map((parte) => parte[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -75,23 +70,28 @@ export default function AdicionarScreen() {
       >
         <View style={styles.container}>
           <View style={styles.topo}>
-            <TouchableOpacity style={styles.botaoVoltar} onPress={() => router.back()}>
-              <Ionicons name="arrow-back" size={22} color={theme.colors.text} />
+            <TouchableOpacity
+              style={styles.botaoVoltar}
+              onPress={() => router.back()}
+            >
+              <Ionicons
+                name="arrow-back"
+                size={22}
+                color={theme.colors.text}
+              />
             </TouchableOpacity>
 
             <Text style={styles.titulo}>Novo Contato</Text>
-
             <View style={{ width: 40 }} />
           </View>
-<View style={styles.areaAvatar}>
-  <View style={styles.avatar}>
-    <Image
-      source={require('../assets/images/avatar-padrao.png')}
-      style={styles.avatarImagem}
-    />
-  </View>
-  <Text style={styles.textoAvatar}>Foto padrão do contato</Text>
-</View>
+
+          <View style={styles.areaAvatar}>
+            <View style={styles.avatar}>
+              <Image source={avatarPadrao} style={styles.avatarImagem} />
+            </View>
+            <Text style={styles.textoAvatar}>Foto padrão do contato</Text>
+          </View>
+
           <View style={styles.form}>
             <View>
               <Text style={styles.label}>Nome</Text>
@@ -121,9 +121,7 @@ export default function AdicionarScreen() {
                 <Ionicons
                   name="call-outline"
                   size={18}
-                  color={
-                    focoTelefone ? theme.colors.primary : theme.colors.textDim
-                  }
+                    color={focoTelefone ? theme.colors.primary : theme.colors.textDim}
                   style={styles.icone}
                 />
                 <TextInput
@@ -205,22 +203,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 20,
   },
- avatar: {
-  width: 90,
-  height: 90,
-  borderRadius: 45,
-  overflow: 'hidden',
-  borderWidth: 1.5,
-  borderColor: theme.colors.border,
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: theme.colors.surface,
-},
-
-avatarImagem: {
-  width: '100%',
-  height: '100%',
-},
+  avatar: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    overflow: 'hidden',
+    borderWidth: 1.5,
+    borderColor: theme.colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.surface,
+  },
+  avatarImagem: {
+    width: '100%',
+    height: '100%',
+  },
   textoAvatar: {
     marginTop: 8,
     fontSize: 12,
